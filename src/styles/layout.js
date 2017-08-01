@@ -1,6 +1,13 @@
 import { createStyleSheet } from 'material-ui/styles';
-export default createStyleSheet('layout',
- {
+export const buttonClass = createStyleSheet('button', {
+  root: {
+    color: '#9E9E9E'
+  },
+  selected: {
+    color: '#F3F3fF'
+  }
+})
+export default createStyleSheet('layout', {
   root: {
     width: '100%',
     height: '100%',
@@ -10,7 +17,7 @@ export default createStyleSheet('layout',
   header: {
     height: '56px',
     width: '100%',
-    backgroundColor: '#2196f3'
+    backgroundColor: '#B71C1C'
   },
   container: {
     flex: 1,
@@ -20,7 +27,13 @@ export default createStyleSheet('layout',
   },
   footer: {
     justifyContent: 'space-around',
-    backgroundColor: '#2196f3'
+    backgroundColor: '#212121'
+  },
+  buttonRoot: {
+    color: '#9E9E9E'
+  },
+  buttonSelected: {
+    color: '#F3F3fF'
   },
   music: {
     width: '100%',

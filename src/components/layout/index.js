@@ -4,26 +4,22 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import {withRouter} from 'react-router'
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  Drawer
-} from 'material-ui';
+import { AppBar, Toolbar, Typography, Button, IconButton, Drawer } from 'material-ui';
 import BottomNavigation, { BottomNavigationButton } from 'material-ui/BottomNavigation';
 import MenuIcon from 'material-ui-icons/Menu';
 import RestoreIcon from 'material-ui-icons/Restore';
 import FavoriteIcon from 'material-ui-icons/Favorite';
 import LocationOnIcon from 'material-ui-icons/LocationOn';
-import layoutStyles from 'styles/layout.js';
+import layoutStyles, { buttonClass } from 'styles/layout.js';
 const routes = {
   0: '/recommend',
   1: '/test',
   2: '/mv'
 }
+import PlayerBox from 'components/player/';
+
 @withRouter
+
 @withStyles(layoutStyles)
 class Layout extends React.Component {
   static contextTypes = {
@@ -44,8 +40,16 @@ class Layout extends React.Component {
   handleOpenMusic = () => {
     this.setState({ open: true })
   }
+  handleBackClick = () => {
+    this.setState({ open: false })
+  }
   render() {
     const classes = this.props.classes;
+    console.log('111', buttonClass)
+    const buttonClasses = {
+      root: classes.buttonRoot,
+      selected: classes.buttonSelected
+    }
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classes.header}>
@@ -68,30 +72,13 @@ class Layout extends React.Component {
           onChange={this.handleChange}
           showLabels
         >
-          <BottomNavigationButton  label="推荐音乐" icon={<RestoreIcon />} />
-          <BottomNavigationButton  label="Favorites" icon={<FavoriteIcon />} />
-          <BottomNavigationButton  label="MV专辑" icon={<LocationOnIcon />} />
+          <BottomNavigationButton classes={buttonClasses} label="推荐音乐" icon={<RestoreIcon />} />
+          <BottomNavigationButton classes={buttonClasses} label="Favorites" icon={<FavoriteIcon />} />
+          <BottomNavigationButton classes={buttonClasses} label="MV专辑" icon={<LocationOnIcon />} />
         </BottomNavigation>
-        <Drawer
-          classes={{
-            paper: classes.music, // className, e.g. `OverridesClasses-root-X`
-          }}
-          open={this.state.open}
-          onRequestClose={this.handleLeftClose}
-          onClick={this.handleLeftClose}
-        >
-          <AppBar position="static">
-            <Toolbar>
-             <IconButton color="contrast" aria-label="Menu">
-               <MenuIcon />
-             </IconButton>
-             <Typography type="title" color="inherit" className={classes.flex}>
-               Title
-             </Typography>
-             <Button color="contrast">Login</Button>
-          </Toolbar>
-          </AppBar>
-      </Drawer>
+        <PlayerBox
+          onBackClick={this.handleBackClick}
+          visable={this.state.open} />
       </div>
     );
   }

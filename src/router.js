@@ -19,7 +19,7 @@ import { MuiThemeProvider } from 'material-ui/styles';
 export default (
     <Router history={history}>
       <Layout>
-        <Route path="/test" component={Text}/>
+        {/* <Route path="/test" component={Text}/> */}
         <Route path="/mv" component={Mv}/>
         <Route path="/recommend" component={Recommend}/>
         <Route path="/home" component={Home}/>
